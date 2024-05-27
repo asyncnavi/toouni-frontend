@@ -1,10 +1,13 @@
 import {Button, InputGroup, TextField} from "@/components/inputs";
-import React from "react";
+import React, { useEffect } from "react";
 
 import {nopeResolver} from '@hookform/resolvers/nope';
 import Nope from 'nope-validator';
 import {useForm} from "react-hook-form";
-import {hasNecessaryDependencies} from "next/dist/lib/has-necessary-dependencies";
+import { createClient } from "@/utils/supabase/client";
+import { useAuth } from "@/provider/auth";
+import { redirect } from "next/navigation";
+import SigninWithGoogleButton from "@/components/signin-with-google-button";
 
 
 const resolver = nopeResolver(
@@ -21,20 +24,17 @@ type Inputs = {
 
 const LoginForm = () => {
 
-
+    const {  login }   = useAuth()
+    
     const { register, handleSubmit, formState } = useForm<Inputs>({
         resolver : resolver
     })
 
 
-    // Login for logging user in
 
-    const login = (values : Inputs) => {
-        console.log(values)
-    }
-
+   
     return (
-        <form onSubmit={handleSubmit(login)}>
+        <form onSubmit={handleSubmit( (values) => login().withPassword(values))}>
             <h2 className="text-2xl mt-2 mb-4">
                 Login to UNIARC
             </h2>
@@ -49,6 +49,8 @@ const LoginForm = () => {
             <InputGroup>
                 <span>Don{"'"}t have an  account? <span className="underline"> Register </span></span>
             </InputGroup>
+            
+           
         </form>
     )
 }

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Modal from "@/components/modal";
 import {Button} from "@/components/inputs";
 import LoginForm from "@/modules/login-form";
+import withoutAuth from '@/hoc/without-auth';
 
 
 
@@ -14,6 +15,8 @@ const Home = () => {
 
     const closeAuthModal = () => setAuthModal(false)
     const openAuthModal = () => setAuthModal(true)
+
+
     return (
 
             <div className="pattern-design w-full border-black border-b px-4 bg-amber-400 py-2 min-h-[100vh]">
@@ -44,5 +47,5 @@ const Home = () => {
 }
 
 
-export default Home
+export default withoutAuth(Home)
 

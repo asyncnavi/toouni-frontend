@@ -5,20 +5,10 @@ import MockIdeas from "@/mock_data/ideas";
 import IdeaCard from "@/modules/idea-card";
 import Image from "next/image";
 import {IconBulb, IconPlus, IconTicket} from "@tabler/icons-react";
-import { usePathname, useRouter } from "next/navigation";
+import withAuth from "@/hoc/with-auth";
 
 const Page =() => {
 
-    const pathname = usePathname()
-    const router = useRouter()
-
-    useEffect(
-        () => {
-            if (pathname === '/app') {
-                router.push("/")
-            }
-        }, [pathname, router]
-    )
 
     return (
         <div className=" ">
@@ -76,4 +66,4 @@ const Page =() => {
     )
 }
 
-export default Page
+export default withAuth(Page)

@@ -48,7 +48,7 @@ type ButtonProps = {
 
 
 const ButtonClass = variants({
-    base: "px-4 py-2 rounded outline-0",
+    base: "flex justify-center align-center px-4 py-2 rounded outline-0",
     variants: {
         variant : {
             text : 'text-black underline',

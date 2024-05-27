@@ -1,9 +1,13 @@
 import {IconBell, IconMessageCircle2} from "@tabler/icons-react";
 import React from "react";
 import Link from "next/link";
+import { useAuth } from "@/provider/auth";
 
 
 const MainHeader = () => {
+
+    const { logout } = useAuth()
+
     return (
         <header
             className="bg-amber-400  py-4 px-2 sticky top-0 z-10  border-black border-b ">
@@ -16,6 +20,7 @@ const MainHeader = () => {
                         <IconBell size={24}/>
                     </div>
                     <div
+                        onClick={ () => logout() }
                         className="bg-red-400 rounded-full w-[30px] h-[30px] flex justify-center items-center shadow-[2px_2px_#000;]">
                         <IconMessageCircle2 size={32}/>
                     </div>
