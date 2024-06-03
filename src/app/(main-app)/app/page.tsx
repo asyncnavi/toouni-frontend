@@ -6,8 +6,12 @@ import IdeaCard from "@/modules/idea-card";
 import Image from "next/image";
 import {IconBulb, IconPlus, IconTicket} from "@tabler/icons-react";
 import withAuth from "@/hoc/with-auth";
+import { createClient } from "@/utils/supabase/client";
 
 const Page =() => {
+
+    const supabse = createClient()
+
 
 
     return (
