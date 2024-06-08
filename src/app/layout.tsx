@@ -1,23 +1,21 @@
-"use client"
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import AuthProvider from "@/provider/auth";
+'use client';
+import { Quicksand } from 'next/font/google';
 
-const inter = Inter({ subsets: ["latin"] });
+import '@/styles/index.css';
+import AuthProvider from '@/providers/auth';
+
+const inter = Quicksand({ subsets: ['latin'] });
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-        <AuthProvider>
-        {children}
-        </AuthProvider>
-        </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                <AuthProvider>{children}</AuthProvider>
+            </body>
+        </html>
+    );
 }

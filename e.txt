@@ -1,0 +1,18 @@
+-- Domain
+
+-- Auth
+    -- login
+    -- forgot password
+    -- register
+-- Onboarding
+    -- create profile
+-- app
+    -- events
+    -- ideas
+    -- posts
+    -- profile
+
+-- marketing
+
+
+

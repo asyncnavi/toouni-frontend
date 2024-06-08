@@ -1,23 +1,27 @@
 import React from 'react';
 
 import { nopeResolver } from '@hookform/resolvers/nope';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
 import { useAuth } from '@/providers/auth';
 import { LoginInput, loginSchema } from '@/schemas/auth';
-import { Button } from '@/ui/button';
-import { InputGroup, TextField } from '@/ui/input';
+import { Button, InputGroup, TextField } from '@/ui';
 
-const LoginForm = () => {
-    const { login } = useAuth();
+const LoginPage = () => {
+    const { register: registerUser } = useAuth();
 
     const { register, handleSubmit, formState } = useForm<LoginInput>({
         resolver: nopeResolver(loginSchema),
     });
 
     return (
-        <form onSubmit={handleSubmit((values) => login().withPassword(values))}>
-            <h2 className="text-2xl mt-2 mb-4">Login to UNIARC</h2>
+        <form
+            onSubmit={handleSubmit((values) =>
+                registerUser().withPassword(values),
+            )}
+        >
+            <h2 className="text-2xl mt-2 mb-4">Let{"'"}s get started</h2>
             <TextField
                 label="Email"
                 placeholder="username123@hotmail.com"
@@ -35,20 +39,20 @@ const LoginForm = () => {
                     formState.errors.password.message
                 }
             />
-            <InputGroup>
-                <span className="underline">Forgot Password?</span>
-            </InputGroup>
+
             <InputGroup>
                 <Button type="submit" fullWidth label="Continue" />
             </InputGroup>
             <InputGroup>
-                <span>
-                    Don{"'"}t have an account?{' '}
-                    <span className="underline"> Register </span>
-                </span>
+                <Link href="/login">
+                    <span>
+                        Already have an account?{' '}
+                        <span className="underline">Login</span>
+                    </span>
+                </Link>
             </InputGroup>
         </form>
     );
 };
 
-export default LoginForm;
+export default LoginPage;

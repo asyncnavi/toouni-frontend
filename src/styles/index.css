@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.pattern-design {
+    background-size: 100px 100px;
+    background-image:
+            linear-gradient(to right, rgba(0, 0,0 ,0.20) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 0,0 ,0.20)  1px, transparent 1px);
+    scroll-behavior: smooth;
+}
+.pattern-design:before {
+    background: linear-gradient(currentcolor 1px, transparent 1px) 0% 0% / 94px 90px, linear-gradient(to right, currentcolor 1px, transparent 1px) transparent;
+}
+
+.white-pattern {
+    background-size: 20px 20px;
+    background-image:
+            linear-gradient(to right, rgba(0, 0,0 ,0.20) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 0,0 ,0.20)  1px, transparent 1px);
+    scroll-behavior: smooth;
+}
+.white-pattern:before {
+    background: linear-gradient(currentcolor 1px, transparent 1px) 0% 0% / 94px 90px, linear-gradient(to right, currentcolor 1px, transparent 1px) transparent;
+}

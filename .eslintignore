@@ -24,9 +24,7 @@
     "plugin:import/warnings",
     "plugin:import/typescript",
     "next",
-    "next/core-web-vitals",
-    "prettier",
-    "plugin:prettier/recommended"
+    "next/core-web-vitals"
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
@@ -49,8 +47,7 @@
           "caseInsensitive": true
         }
       }
-    ],    
-    "prettier/prettier": "error"
+    ]
   },
   "settings": {
     "react": {

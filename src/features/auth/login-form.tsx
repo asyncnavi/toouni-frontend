@@ -1,6 +1,9 @@
 import React from 'react';
 
 import { nopeResolver } from '@hookform/resolvers/nope';
+import { IconClover, IconSchool } from '@tabler/icons-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
 import { useAuth } from '@/providers/auth';
@@ -8,7 +11,7 @@ import { LoginInput, loginSchema } from '@/schemas/auth';
 import { Button } from '@/ui/button';
 import { InputGroup, TextField } from '@/ui/input';
 
-const LoginForm = () => {
+export default function LoginForm() {
     const { login } = useAuth();
 
     const { register, handleSubmit, formState } = useForm<LoginInput>({
@@ -17,7 +20,7 @@ const LoginForm = () => {
 
     return (
         <form onSubmit={handleSubmit((values) => login().withPassword(values))}>
-            <h2 className="text-2xl mt-2 mb-4">Login to UNIARC</h2>
+            <h2 className="text-2xl mt-2 mb-4">Login </h2>
             <TextField
                 label="Email"
                 placeholder="username123@hotmail.com"
@@ -36,19 +39,21 @@ const LoginForm = () => {
                 }
             />
             <InputGroup>
-                <span className="underline">Forgot Password?</span>
+                <Link href="/forgot">
+                    <span className="underline">Forgot Password?</span>
+                </Link>
             </InputGroup>
             <InputGroup>
                 <Button type="submit" fullWidth label="Continue" />
             </InputGroup>
             <InputGroup>
-                <span>
-                    Don{"'"}t have an account?{' '}
-                    <span className="underline"> Register </span>
-                </span>
+                <Link href="/register">
+                    <span>
+                        Don{"'"}t have an account?{' '}
+                        <span className="underline"> Register </span>
+                    </span>
+                </Link>
             </InputGroup>
         </form>
     );
-};
-
-export default LoginForm;
+}
