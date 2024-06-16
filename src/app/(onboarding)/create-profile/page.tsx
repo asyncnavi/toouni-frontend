@@ -7,23 +7,24 @@ import { IconX } from '@tabler/icons-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
-import { Button, TextArea, TextField } from '@/components/inputs';
-import { CreateProfileInput, createProfileSchema } from '@/form-schemas';
-import { supabase } from '@/lib/supabase/client';
+import { supabase } from '@/lib/supabase';
+import { CreateProfileInput, createProfileSchema } from '@/schemas/profile';
+import { Button, TextArea, TextField } from '@/ui';
 
 const CreateProfilePage = () => {
     const searchParams = useSearchParams();
     const profileType = searchParams.get('profile_type');
     const router = useRouter();
 
-    const { register, handleSubmit, formState, reset, setValue } =
+    const { register, handleSubmit, formState, setValue } =
         useForm<CreateProfileInput>({
             resolver: nopeResolver(createProfileSchema),
         });
 
     useEffect(() => {
         if (profileType) {
-            // @ts-ignore
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             setValue('type', profileType);
         } else {
             router.push('/select-type');
@@ -31,11 +32,7 @@ const CreateProfilePage = () => {
     }, [profileType, router, setValue]);
 
     const createProfile = async (values: CreateProfileInput) => {
-        const {
-            data,
-            error,
-            status: status,
-        } = await supabase.from('profiles').insert(values);
+        const { error } = await supabase.from('profiles').insert(values);
         if (error) {
             console.log(error);
         }

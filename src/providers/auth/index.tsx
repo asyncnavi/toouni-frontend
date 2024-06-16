@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
-import { createClient } from '@/lib/supabase/client';
+import { supabase } from '@/lib/supabase';
 
 import {
     AuthContextType,
@@ -22,8 +22,6 @@ AuthContext.displayName = 'AuthContext';
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
     const [state, setState] = useState<AuthState>(initialAuthState);
-
-    const supabase = createClient();
 
     useEffect(() => {
         supabase.auth.getSession().then((data) => {
@@ -135,7 +133,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     };
 
     const forgotPassword = async ({ email }: ForgotPasswordCredentials) => {
-        const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        await supabase.auth.resetPasswordForEmail(email, {
             redirectTo: 'localhost:3000/login',
         });
     };

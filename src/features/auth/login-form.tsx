@@ -1,8 +1,6 @@
 import React from 'react';
 
 import { nopeResolver } from '@hookform/resolvers/nope';
-import { IconClover, IconSchool } from '@tabler/icons-react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
