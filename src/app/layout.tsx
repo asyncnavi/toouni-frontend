@@ -1,20 +1,34 @@
 'use client';
-import { Quicksand } from 'next/font/google';
+import { ReactNode, useEffect } from 'react';
 
 import '@/styles/index.css';
-import AuthProvider from '@/providers/auth';
+import { Quicksand } from 'next/font/google';
+import { Provider } from 'react-redux';
+
+import { store, useAppDispatch } from '@/store';
+import { initializeSession } from '@/store/auth/thunks';
 
 const inter = Quicksand({ subsets: ['latin'] });
+
+const AuthInitilizer = ({ children }: { children: ReactNode }) => {
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(initializeSession());
+    }, [dispatch]);
+    return <>{children}</>;
+};
 
 export default function RootLayout({
     children,
 }: Readonly<{
-    children: React.ReactNode;
+    children: ReactNode;
 }>) {
     return (
         <html lang="en">
             <body className={inter.className}>
-                <AuthProvider>{children}</AuthProvider>
+                <Provider store={store}>
+                    <AuthInitilizer>{children}</AuthInitilizer>
+                </Provider>
             </body>
         </html>
     );

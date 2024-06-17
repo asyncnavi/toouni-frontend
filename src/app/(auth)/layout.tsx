@@ -1,12 +1,11 @@
+'use client';
 import React from 'react';
 
 import Image from 'next/image';
 
-export default function AuthLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+import withoutAuth from '@/hoc/without-auth';
+
+function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
         <div className="white-pattern w-full border-black border-b px-4 bg-white py-2 min-h-[100vh]">
             <Image src="/assets/logo.png" alt="ds" width="150" height="150" />
@@ -17,3 +16,5 @@ export default function AuthLayout({
         </div>
     );
 }
+
+export default withoutAuth(AuthLayout);

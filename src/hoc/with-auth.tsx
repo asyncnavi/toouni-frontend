@@ -1,33 +1,38 @@
 import { useEffect } from 'react';
 
 import { redirect } from 'next/navigation';
+import { useSelector } from 'react-redux';
 
-import { useAuth } from '@/providers/auth';
+import { RootState } from '@/store';
 import { LoadingOverlay } from '@/ui';
 
-// FIXME : Add loading overlay
-
+/*
+    FIXME : Handle Error using toast
+ */
 export default function withAuth(Component: React.ComponentType) {
     const AuthenticatedComponent = (props: any) => {
-        const { state } = useAuth();
+        const { user, status, error } = useSelector(
+            (state: RootState) => state.auth,
+        );
+        const loading = status == 'pending';
 
         useEffect(() => {
-            if (!state.isLoading && !state.user) {
+            if (!loading && !user) {
                 redirect('/');
             }
         });
 
-        if (state.error) {
-            console.log(state.error);
-            alert(state.error);
+        if (error) {
+            console.log(error);
+            alert(error);
             return;
         }
 
-        if (state.isLoading) {
+        if (loading) {
             return <LoadingOverlay loading />;
         }
 
-        if (state.user) {
+        if (user) {
             return <Component {...props} />;
         }
 

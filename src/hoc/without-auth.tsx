@@ -1,26 +1,29 @@
 import { useEffect } from 'react';
 
 import { redirect } from 'next/navigation';
+import { useSelector } from 'react-redux';
 
-import { useAuth } from '@/providers/auth';
+import { RootState } from '@/store';
 import { LoadingOverlay } from '@/ui';
 
 export default function withoutAuth(Component: React.ComponentType) {
     const NotAuthenticatedComponent = (props: any) => {
-        const { state } = useAuth();
-
+        const { user, status, error } = useSelector(
+            (state: RootState) => state.auth,
+        );
+        const loading = status == 'pending';
         useEffect(() => {
-            if (!state.isLoading && state.user) {
+            if (!loading && user) {
                 redirect('/app');
             }
-        }, [state]);
+        }, [loading, user]);
 
-        if (state.error) {
-            alert(state.error);
+        if (error) {
+            alert(error);
             return;
         }
 
-        if (state.isLoading) {
+        if (loading) {
             return <LoadingOverlay loading />;
         }
 
