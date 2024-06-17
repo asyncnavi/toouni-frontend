@@ -24,3 +24,19 @@
 .white-pattern:before {
     background: linear-gradient(currentcolor 1px, transparent 1px) 0% 0% / 94px 90px, linear-gradient(to right, currentcolor 1px, transparent 1px) transparent;
 }
+
+@keyframes loading-bar {
+    0% { width: 0;
+            background-color: #60a5fa;
+    }
+    50% { width: 50%;
+        background-color:#4ade80;
+    }
+    100% { width: 100%;
+        background-color: #facc15;
+    }
+}
+
+.animate-loading-bar {
+    animation: loading-bar 1.5s infinite;
+}

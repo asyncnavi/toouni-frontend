@@ -4,23 +4,23 @@ import { nopeResolver } from '@hookform/resolvers/nope';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
-import { useAuth } from '@/providers/auth';
-import { LoginInput, loginSchema } from '@/schemas/auth';
+import { RegisterInput, registerSchema } from '@/schemas/auth';
+import { useAppDispatch } from '@/store';
+import { registerWithPassword } from '@/store/auth/thunks';
 import { Button, InputGroup, TextField } from '@/ui';
 
 const LoginPage = () => {
-    const { register: registerUser } = useAuth();
-
-    const { register, handleSubmit, formState } = useForm<LoginInput>({
-        resolver: nopeResolver(loginSchema),
+    const dispatch = useAppDispatch();
+    const { register, handleSubmit, formState } = useForm<RegisterInput>({
+        resolver: nopeResolver(registerSchema),
     });
 
+    const registerUser = (values: RegisterInput) => {
+        dispatch(registerWithPassword(values));
+    };
+
     return (
-        <form
-            onSubmit={handleSubmit((values) =>
-                registerUser().withPassword(values),
-            )}
-        >
+        <form onSubmit={handleSubmit(registerUser)}>
             <h2 className="text-2xl mt-2 mb-4">Let{"'"}s get started</h2>
             <TextField
                 label="Email"

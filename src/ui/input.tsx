@@ -22,7 +22,6 @@ export const TextField: FC<TextFieldProps> = forwardRef<
                 </label>
             )}
             <input
-                type="text"
                 ref={ref}
                 className={`p-2 outline-0 rounded border-2 ${
                     error

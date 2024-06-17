@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form';
 import { supabase } from '@/lib/supabase';
 import { CreateProfileInput, createProfileSchema } from '@/schemas/profile';
 import { Button, TextArea, TextField } from '@/ui';
+import DateInput from '@/ui/date-input';
 
 const CreateProfilePage = () => {
     const searchParams = useSearchParams();
@@ -88,6 +89,16 @@ const CreateProfilePage = () => {
                     placeholder="Chandigarh University"
                     type="text"
                 />
+                <TextField
+                    error={
+                        formState.errors.university_or_college &&
+                        formState.errors.university_or_college.message
+                    }
+                    {...register('university_or_college')}
+                    label="When were you born?"
+                    type="date"
+                />
+
                 <TextField
                     error={
                         formState.errors.location &&

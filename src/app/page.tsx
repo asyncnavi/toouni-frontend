@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { IconArrowRight } from '@tabler/icons-react';
 import Image from 'next/image';
@@ -7,23 +7,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import withoutAuth from '@/hoc/without-auth';
-import LoginForm from '@/modules/login-form';
-import { Modal } from '@/ui';
 
 const Home = () => {
-    const [authModal, setAuthModal] = useState(false);
-    const closeAuthModal = () => setAuthModal(false);
     const router = useRouter();
     return (
         <div className="pattern-design w-full border-black border-b px-4 bg-amber-400 py-2 min-h-[100vh]">
-            <Modal
-                title="Login Modal"
-                opened={authModal}
-                onClose={closeAuthModal}
-                className="bg-white w-[95%] max-w-[400px]"
-            >
-                <LoginForm />
-            </Modal>
             <Image src="/assets/logo.png" alt="ds" width="150" height="150" />
             <h1 className="uppercase max-w-[800px] font-bold  xs:text-4xl xs:leading-relaxed  md:text-6xl md:leading-relaxed ">
                 Where students{' '}

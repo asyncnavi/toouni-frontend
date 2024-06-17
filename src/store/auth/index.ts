@@ -3,6 +3,7 @@ import { User } from '@supabase/supabase-js';
 
 import {
     forgotPassword,
+    initializeSession,
     loginWithPassword,
     logout,
     registerWithPassword,
@@ -10,6 +11,7 @@ import {
 
 interface AuthState {
     user?: User | null;
+    hasProfile: boolean;
     status: 'idle' | 'pending' | 'fulfilled' | 'rejected';
     error?: string | null;
 }
@@ -18,6 +20,7 @@ const initialAuthState: AuthState = {
     user: null,
     status: 'idle',
     error: null,
+    hasProfile: false,
 };
 
 export const authSlice = createSlice({
@@ -27,13 +30,28 @@ export const authSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            .addCase(initializeSession.pending, (state) => {
+                state.status = 'pending';
+                state.error = null;
+            })
+            .addCase(initializeSession.fulfilled, (state, action) => {
+                state.status = 'fulfilled';
+                state.user = action.payload.user;
+                state.hasProfile = action.payload.hasProfile;
+                state.error = null;
+            })
+            .addCase(initializeSession.rejected, (state, action) => {
+                state.status = 'rejected';
+                state.error = action.payload as string;
+            })
             .addCase(loginWithPassword.pending, (state) => {
                 state.status = 'pending';
                 state.error = null;
             })
             .addCase(loginWithPassword.fulfilled, (state, action) => {
                 state.status = 'fulfilled';
-                state.user = action.payload;
+                state.user = action.payload.user;
+                state.hasProfile = action.payload.hasProfile;
                 state.error = null;
             })
             .addCase(loginWithPassword.rejected, (state, action) => {

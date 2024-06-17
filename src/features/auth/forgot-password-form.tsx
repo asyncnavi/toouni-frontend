@@ -4,17 +4,24 @@ import { nopeResolver } from '@hookform/resolvers/nope';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
-import { LoginInput, loginSchema } from '@/schemas/auth';
+import { ForgotPasswordInput, forgotPasswordSchema } from '@/schemas/auth';
+import { useAppDispatch } from '@/store';
+import { forgotPassword } from '@/store/auth/thunks';
 import { Button } from '@/ui/button';
 import { InputGroup, TextField } from '@/ui/input';
 
 const ForgotPasswordForm = () => {
-    const { register, handleSubmit, formState } = useForm<LoginInput>({
-        resolver: nopeResolver(loginSchema),
+    const dispatch = useAppDispatch();
+    const { register, handleSubmit, formState } = useForm<ForgotPasswordInput>({
+        resolver: nopeResolver(forgotPasswordSchema),
     });
 
+    const sendForgotPasswordEmail = (values: ForgotPasswordInput) => {
+        dispatch(forgotPassword(values));
+    };
+
     return (
-        <form onSubmit={handleSubmit(() => {})}>
+        <form onSubmit={handleSubmit(sendForgotPasswordEmail)}>
             <h2 className="text-2xl mt-2 mb-4">Forgot password?</h2>
             <TextField
                 label="Email"

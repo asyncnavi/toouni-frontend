@@ -5,13 +5,14 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '@/store';
 import { LoadingOverlay } from '@/ui';
+import Toast from '@/ui/toast';
 
 /*
     FIXME : Handle Error using toast
  */
 export default function withAuth(Component: React.ComponentType) {
     const AuthenticatedComponent = (props: any) => {
-        const { user, status, error } = useSelector(
+        const { user, hasProfile, status, error } = useSelector(
             (state: RootState) => state.auth,
         );
         const loading = status == 'pending';
@@ -23,16 +24,25 @@ export default function withAuth(Component: React.ComponentType) {
         });
 
         if (error) {
-            console.log(error);
-            alert(error);
-            return;
+            return (
+                <Toast
+                    variant="danger"
+                    title="There is an error"
+                    description={error}
+                />
+            );
         }
 
         if (loading) {
             return <LoadingOverlay loading />;
         }
 
-        if (user) {
+        if (user && !hasProfile) {
+            redirect('/create-profile');
+            return null;
+        }
+
+        if (user && hasProfile) {
             return <Component {...props} />;
         }
 

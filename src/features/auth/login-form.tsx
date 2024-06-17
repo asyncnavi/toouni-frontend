@@ -4,20 +4,24 @@ import { nopeResolver } from '@hookform/resolvers/nope';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
-import { useAuth } from '@/providers/auth';
 import { LoginInput, loginSchema } from '@/schemas/auth';
+import { useAppDispatch } from '@/store';
+import { loginWithPassword } from '@/store/auth/thunks';
 import { Button } from '@/ui/button';
 import { InputGroup, TextField } from '@/ui/input';
 
 export default function LoginForm() {
-    const { login } = useAuth();
-
+    const dispatch = useAppDispatch();
     const { register, handleSubmit, formState } = useForm<LoginInput>({
         resolver: nopeResolver(loginSchema),
     });
 
+    const loginUser = (values: LoginInput) => {
+        dispatch(loginWithPassword(values));
+    };
+
     return (
-        <form onSubmit={handleSubmit((values) => login().withPassword(values))}>
+        <form onSubmit={handleSubmit(loginUser)}>
             <h2 className="text-2xl mt-2 mb-4">Login </h2>
             <TextField
                 label="Email"
