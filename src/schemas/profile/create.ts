@@ -1,15 +1,5 @@
 import * as Nope from 'nope-validator';
 
-export type CreateProfileInput = {
-    name: string;
-    username: string;
-    bio: string;
-    university_or_college: string;
-    location: string;
-    type: 'student' | 'organization';
-};
-
-// @ts-ignore
 export const createProfileSchema = Nope.object().shape({
     name: Nope.string().required('Your name is required to create a profile'),
     username: Nope.string()
@@ -25,6 +15,6 @@ export const createProfileSchema = Nope.object().shape({
         48,
         'Location cannot be more than 48 characters',
     ),
-    date_of_birth: Nope.date('Invalid date').test('valid-date', (value) => {}),
+    date_of_birth: Nope.date(),
     type: Nope.string().required('Profile type is required'),
 });

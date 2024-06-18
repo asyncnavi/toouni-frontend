@@ -10,7 +10,6 @@ import { useForm } from 'react-hook-form';
 import { supabase } from '@/lib/supabase';
 import { CreateProfileInput, createProfileSchema } from '@/schemas/profile';
 import { Button, TextArea, TextField } from '@/ui';
-import DateInput from '@/ui/date-input';
 
 const CreateProfilePage = () => {
     const searchParams = useSearchParams();
@@ -91,8 +90,8 @@ const CreateProfilePage = () => {
                 />
                 <TextField
                     error={
-                        formState.errors.university_or_college &&
-                        formState.errors.university_or_college.message
+                        formState.errors.date_or_birth &&
+                        formState.errors.date_or_birth.message
                     }
                     {...register('university_or_college')}
                     label="When were you born?"
