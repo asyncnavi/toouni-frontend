@@ -1,17 +1,9 @@
-'use client'
+'use client';
 
-import React from "react";
-import MainNavigation from "@/modules/main-navigation";
-import MainHeader from "@/modules/main-header";
+import React from 'react';
 
+const Page = () => {
+    return <div>Hello</div>;
+};
 
-const Page =() => {
-
-    return (
-      <div>
-          Hello
-      </div>
-    )
-}
-
-export default Page
+export default Page;

@@ -18,15 +18,27 @@ export const initializeSession = createAsyncThunk(
              */
             const user = data.session?.user ?? null;
             if (user?.email) {
+                console.log('User found');
                 const userInfo: Record<string, boolean> = await JSON.parse(
                     localStorage.getItem('profileChecker') || '{}',
                 );
-
-                if (userInfo) {
+                if (userInfo && userInfo.email) {
                     const hasProfile = userInfo[user.email];
                     return { user: user, hasProfile: hasProfile };
+                } else {
+                    console.log('Local storage not found');
+                    const { data: profileData, error: profileError } =
+                        await supabase
+                            .from('profiles')
+                            .select('*')
+                            .eq('id', user?.id);
+
+                    if (profileError) {
+                        return thunkAPI.rejectWithValue(profileError.message);
+                    }
+                    const hasProfile = profileData?.length > 0;
+                    return { user: user, hasProfile: hasProfile };
                 }
-                return { user: user, hasProfile: false };
             } else {
                 return { user: user, hasProfile: false };
             }

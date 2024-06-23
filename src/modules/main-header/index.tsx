@@ -10,6 +10,7 @@ import { logout } from '@/store/auth/thunks';
 const MainHeader = () => {
     const dispatch = useAppDispatch();
     const logoutUser = () => {
+        console.log('cxcxc');
         dispatch(logout());
     };
     return (

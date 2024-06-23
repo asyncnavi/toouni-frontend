@@ -6,40 +6,54 @@ import { nopeResolver } from '@hookform/resolvers/nope';
 import { IconX } from '@tabler/icons-react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
-import { supabase } from '@/lib/supabase';
-import { CreateProfileInput, createProfileSchema } from '@/schemas/profile';
+import { useCreateProfileMutation } from '@/api/profile';
+import { CreateProfile } from '@/models/profile';
+import { createProfileSchema } from '@/schemas/profile';
+import { RootState } from '@/store';
 import { Button, TextArea, TextField } from '@/ui';
+import LoadingBar from '@/ui/loading-bar';
 
 const CreateProfilePage = () => {
     const searchParams = useSearchParams();
     const profileType = searchParams.get('profile_type');
     const router = useRouter();
-
+    const { user } = useSelector((state: RootState) => state.auth);
     const { register, handleSubmit, formState, setValue } =
-        useForm<CreateProfileInput>({
+        useForm<CreateProfile>({
             resolver: nopeResolver(createProfileSchema),
         });
 
     useEffect(() => {
         if (profileType) {
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-expect-error
             setValue('type', profileType);
         } else {
             router.push('/select-type');
         }
     }, [profileType, router, setValue]);
 
-    const createProfile = async (values: CreateProfileInput) => {
-        const { error } = await supabase.from('profiles').insert(values);
-        if (error) {
-            console.log(error);
+    const [createProfile, { isLoading }] = useCreateProfileMutation();
+
+    const submitForm = async (values: CreateProfile) => {
+        if (user?.id) {
+            await createProfile({
+                id: user.id,
+                data: values,
+            })
+                .unwrap()
+                .then(() => {
+                    router.push('/app');
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
         }
     };
 
     return (
         <div>
+            <LoadingBar loading={isLoading} />
             <div className="w-full border-b py-4 sticky top-0 bg-white">
                 <div className="flex justify-between w-full max-w-[600px] mx-auto items-center px-2">
                     <h1 className="uppercase font-bold">Create profile</h1>
@@ -49,7 +63,7 @@ const CreateProfilePage = () => {
                 </div>
             </div>
             <form
-                onSubmit={handleSubmit(createProfile)}
+                onSubmit={handleSubmit(submitForm)}
                 className="flex flex-col gap-1 mx-auto justify-center max-w-[600px] my-4 px-2"
             >
                 <TextField
@@ -90,10 +104,10 @@ const CreateProfilePage = () => {
                 />
                 <TextField
                     error={
-                        formState.errors.date_or_birth &&
-                        formState.errors.date_or_birth.message
+                        formState.errors.date_of_birth &&
+                        formState.errors.date_of_birth.message
                     }
-                    {...register('university_or_college')}
+                    {...register('date_of_birth')}
                     label="When were you born?"
                     type="date"
                 />

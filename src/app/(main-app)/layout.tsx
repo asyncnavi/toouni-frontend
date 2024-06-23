@@ -19,7 +19,7 @@ export default function AppLayout({
                 <div className="md:bg-gray-200 w-full">
                     <MainHeader />
                     <div className="bg-white min-h-screen flex flex-col md:max-w-[1280px] md:mx-auto ">
-                        <main className="flex-1 p-4 ">{children}</main>
+                        <main className="flex-1 ">{children}</main>
                         <MainNavigation />
                     </div>
                 </div>

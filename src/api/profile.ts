@@ -1,24 +1,32 @@
-import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query';
+import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { supabase } from '@/lib/supabase';
-import { Profile } from '@/models/profile';
+import { CreateProfile, Profile } from '@/models/profile';
 
-const profileApi = createApi({
+export const profileApi = createApi({
     reducerPath: 'profileApi',
     baseQuery: fakeBaseQuery(),
+    tagTypes: ['Profile'],
     endpoints: (builder) => ({
-        createProfile: builder.mutation<string, Profile>({
+        createProfile: builder.mutation<
+            string,
+            { id: string; data: CreateProfile }
+        >({
             queryFn: async (profile) => {
+                const data = { id: profile.id, ...profile.data };
                 const { error } = await supabase
                     .from('profiles')
-                    .insert([profile]);
+                    .insert([data]);
 
                 if (error) {
                     return {
-                        error: { status: 'CUSTOM_ERROR', error: error.message },
+                        error: {
+                            code: error.code,
+                            error: error.message,
+                        },
                     };
                 }
-
+                localStorage.clear();
                 return { data: `Profile created` };
             },
         }),
@@ -31,6 +39,7 @@ const profileApi = createApi({
                     .eq('id', id);
 
                 if (error) {
+                    console.log(error);
                     return {
                         error: { status: 'CUSTOM_ERROR', error: error.message },
                     };
@@ -39,7 +48,24 @@ const profileApi = createApi({
                 return { data: `Profile updated` };
             },
         }),
+        getProfile: builder.query<Profile, { id: string }>({
+            queryFn: async ({ id }) => {
+                const { data, error } = await supabase
+                    .from('profiles')
+                    .select('*')
+                    .eq('id', id);
+
+                if (error) {
+                    console.log(error);
+                    return {
+                        error: { status: 'CUSTOM_ERROR', error: error.message },
+                    };
+                }
+
+                return { data: data[0] };
+            },
+        }),
     }),
 });
 
-export default profileApi;
+export const { useCreateProfileMutation, useGetProfileQuery } = profileApi;

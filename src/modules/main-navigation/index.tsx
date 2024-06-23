@@ -14,26 +14,26 @@ const NavigationData = [
     {
         id: 'ideas-nav',
         label: 'Ideas',
-        icon: <IconBulb />,
+        icon: <IconBulb className="w-4 h-4" />,
         href: '/app',
     },
 
     {
         id: 'events-nav',
         label: 'Events',
-        icon: <IconTicket />,
+        icon: <IconTicket className="w-4 h-4" />,
         href: '/events',
     },
     {
         id: 'post-nav',
         label: 'Posts',
-        icon: <IconFloatCenter />,
+        icon: <IconFloatCenter className="w-4 h-4" />,
         href: '/posts',
     },
     {
         id: 'profile-nav',
         label: 'Profile',
-        icon: <IconUserCircle />,
+        icon: <IconUserCircle className="w-4 h-4" />,
         href: '/profile',
     },
 ];
@@ -42,14 +42,14 @@ const MainNavigation = () => {
     const pathname = usePathname();
 
     return (
-        <footer className="xs:w-full md:rounded-none md:w-[600px] md:-mb-2  md:mx-auto md:bg-black md:text-white md:border-white md:bottom-1 bg-white border-t-2 border-t-black px-2 py-4  flex justify-center sticky bottom-0 z-10 md:py-0 md:px-0">
+        <footer className=" w-full  md:rounded-none md:w-[600px] md:-mb-2  md:mx-auto md:bg-black md:text-white md:border-white md:bottom-1 bg-white border-t-2 border-t-black px-2 py-4  flex justify-center sticky bottom-0 z-10 md:py-0 md:px-0">
             {NavigationData.map((nav) => {
                 return (
                     <Link
                         key={nav.id}
                         href={nav.href}
                         className={clsx(
-                            'md:border-0 md:rounded-none p-2 flex justify-center gap-1 items-center w-full  rounded',
+                            'xs:p-1 sm:p-2  md:border-0 md:rounded-none  flex justify-center gap-1 items-center w-full  rounded text-sm',
                             pathname === nav.href &&
                                 ' text-white bg-amber-400 border border-black ',
                         )}

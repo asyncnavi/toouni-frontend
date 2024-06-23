@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { thunk } from 'redux-thunk';
 
-import profileApi from '@/api/profile';
+import { profileApi } from '@/api/profile';
 import { authSlice } from '@/store/auth';
 
 export const store = configureStore({
@@ -10,7 +10,8 @@ export const store = configureStore({
         auth: authSlice.reducer,
         [profileApi.reducerPath]: profileApi.reducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(thunk, profileApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

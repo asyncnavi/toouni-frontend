@@ -14,7 +14,7 @@ const AuthInitilizer = ({ children }: { children: ReactNode }) => {
     const dispatch = useAppDispatch();
     useEffect(() => {
         dispatch(initializeSession());
-    }, [dispatch]);
+    }, []);
     return <>{children}</>;
 };
 

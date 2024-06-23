@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+ * {
+     box-sizing: border-box;
+ }
 
 .pattern-design {
     background-size: 100px 100px;
