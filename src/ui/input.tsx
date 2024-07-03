@@ -1,8 +1,5 @@
 import React, { FC, forwardRef } from 'react';
 
-import { variants } from 'classname-variants';
-import { clsx } from 'clsx';
-
 type TextFieldProps = {
     label?: string;
     htmlFor?: string;
