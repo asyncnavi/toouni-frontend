@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { thunk } from 'redux-thunk';
 
+import { eventApi } from '@/api/event';
 import { profileApi } from '@/api/profile';
 import { authSlice } from '@/store/auth';
 
@@ -9,6 +10,7 @@ export const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
         [profileApi.reducerPath]: profileApi.reducer,
+        [eventApi.reducerPath]: eventApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(thunk, profileApi.middleware),

@@ -7,9 +7,6 @@ import { RootState } from '@/store';
 import { LoadingOverlay } from '@/ui';
 import Toast from '@/ui/toast';
 
-/*
-    FIXME : Handle Error using toast
- */
 export default function withAuth(Component: React.ComponentType) {
     const AuthenticatedComponent = (props: any) => {
         const { user, hasProfile, status, error } = useSelector(

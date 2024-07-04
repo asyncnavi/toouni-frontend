@@ -22,10 +22,9 @@ const Page = () => {
     const { user } = useSelector((state: RootState) => state.auth);
 
     const { data, isLoading } = useGetProfileQuery({ id: user?.id ?? '' });
-
     return (
         <React.Fragment>
-            <LoadingBar isLoading={isLoading} />
+            <LoadingBar loading={isLoading} />
             <div className="flex flex-col gap-1 mx-auto justify-center w-full h-[120px]  white-pattern "></div>
             <Image
                 src="https://randomuser.me/api/portraits/men/3.jpg"
