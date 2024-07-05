@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { variants } from 'classname-variants';
 import { clsx } from 'clsx';
 
-type ButtonProps = {
+export type ButtonProps = {
     label?: string;
     leftIcon?: React.ReactNode;
     rightIcon?: React.ReactNode;
