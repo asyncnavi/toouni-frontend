@@ -1,5 +1,4 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-
 import { supabase } from '@/lib/supabase';
 
 export const loginWithPassword = createAsyncThunk(

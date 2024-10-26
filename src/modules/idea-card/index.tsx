@@ -1,6 +1,11 @@
 import React, { FC } from 'react';
 
-import { IconBubble, IconHeart, IconShare } from '@tabler/icons-react';
+import {
+    IconArrowRight,
+    IconBubble,
+    IconHeart,
+    IconShare,
+} from '@tabler/icons-react';
 import Image from 'next/image';
 
 type IdeaCardProps = {
@@ -11,7 +16,9 @@ type IdeaCardProps = {
 
 const IdeaCard: FC<IdeaCardProps> = ({ profile_pic, username, idea }) => {
     return (
-        <div className="bg-white mx-auto max-w-[600px] w-full flex flex-col px-2 py-4 justify-between border border-black gap-2 my-4 shadow-[8px_8px_white]">
+        <div className="bg-white rounded-md mx-auto max-w-[600px] w-full flex flex-col px-2 py-4 justify-between border border-black gap-2 my-4 shadow-[8px_8px_white]">
+            <p className="text-xl">{idea}</p>
+
             <div className="flex gap-1">
                 <Image
                     alt=""
@@ -27,27 +34,17 @@ const IdeaCard: FC<IdeaCardProps> = ({ profile_pic, username, idea }) => {
                     </h5>
                 </div>
             </div>
-            <p>{idea}</p>
-
-            <div className="flex items-center justify-between gap-2">
-                <div className="flex gap-2">
-                    <button className="shadow-[4px_4px_#000] border border-black px-2 py-0.5 w-max flex items-center gap-2">
-                        <IconHeart size="18" />
-                        Like
-                    </button>
-                    <button className="shadow-[4px_4px_#000] border border-black px-2 py-.5 w-max flex items-center gap-2">
-                        <IconBubble size="18" />
-                        Comment
-                    </button>
-                </div>
-
-                <IconShare />
-            </div>
-            <div>
+            <div className="flex items-center justify-between">
                 <small className="text-xs text-gray-400">
                     {' '}
-                    231 likes and 33 comments
+                    33 people joined.
                 </small>
+                <button className="flex p-1 items-center gap-1 w-max border border-amber-400 rounded cursor-pointer">
+                    <span className="text-xs text-amber-400 ">
+                        Join discussion.
+                    </span>
+                    <IconArrowRight size={12} className="text-amber-400" />
+                </button>
             </div>
         </div>
     );

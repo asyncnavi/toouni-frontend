@@ -3,7 +3,7 @@
 import React from 'react';
 
 const Page = () => {
-    return <div>Hello</div>;
+    return <div className="border border-black ">Hello</div>;
 };
 
 export default Page;

@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-    IconBulb,
-    IconFloatCenter,
-    IconTicket,
-    IconUserCircle,
-} from '@tabler/icons-react';
+import { IconBulb, IconTicket, IconUserCircle } from '@tabler/icons-react';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -13,27 +8,22 @@ import { usePathname } from 'next/navigation';
 const NavigationData = [
     {
         id: 'ideas-nav',
-        label: 'Ideas',
-        icon: <IconBulb className="w-4 h-4" />,
+        label: 'Discuss',
+        icon: <IconBulb />,
         href: '/app',
     },
 
     {
         id: 'events-nav',
         label: 'Events',
-        icon: <IconTicket className="w-4 h-4" />,
+        icon: <IconTicket />,
         href: '/events',
     },
-    {
-        id: 'post-nav',
-        label: 'Posts',
-        icon: <IconFloatCenter className="w-4 h-4" />,
-        href: '/posts',
-    },
+
     {
         id: 'profile-nav',
         label: 'Profile',
-        icon: <IconUserCircle className="w-4 h-4" />,
+        icon: <IconUserCircle />,
         href: '/profile',
     },
 ];
@@ -42,23 +32,26 @@ const MainNavigation = () => {
     const pathname = usePathname();
 
     return (
-        <footer className=" w-full  md:rounded-none md:w-[600px] md:-mb-2  md:mx-auto md:bg-black md:text-white md:border-white md:bottom-1 bg-white border-t-2 border-t-black px-2 py-4  flex justify-center sticky bottom-0 z-10 md:py-0 md:px-0">
-            {NavigationData.map((nav) => {
-                return (
-                    <Link
-                        key={nav.id}
-                        href={nav.href}
-                        className={clsx(
-                            'xs:p-1 sm:p-2  md:border-0 md:rounded-none  flex justify-center gap-1 items-center w-full  rounded text-sm',
-                            pathname === nav.href &&
-                                ' text-white bg-amber-400 border border-black ',
-                        )}
-                    >
-                        {nav.label}
-                        {nav.icon}
-                    </Link>
-                );
-            })}
+        <footer className="w-full flex fixed z-10 bottom-0 left-0 bg-white border-t-2 border-t-black">
+            <div className="w-full max-w-[600px] mx-auto flex py-2 px-1 gap-2">
+                {NavigationData.map((nav) => {
+                    return (
+                        <Link
+                            key={nav.id}
+                            href={nav.href}
+                            className={clsx(
+                                'flex w-full items-center gap-2 justify-center py-2 rounded border-2 transition .3s ease-linear',
+                                pathname === nav.href
+                                    ? 'bg-amber-400 border-black'
+                                    : 'border-white',
+                            )}
+                        >
+                            {nav.label}
+                            {nav.icon}
+                        </Link>
+                    );
+                })}
+            </div>
         </footer>
     );
 };

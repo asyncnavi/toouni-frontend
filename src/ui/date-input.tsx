@@ -2,7 +2,7 @@ import React from 'react';
 
 const DateInput = () => {
     return (
-        <div className="flex flex-col my-2">
+        <div className="flex flex-col my-2 ">
             <label htmlFor="a" className="mb-2">
                 Date of birth
             </label>

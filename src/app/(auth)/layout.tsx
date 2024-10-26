@@ -16,7 +16,7 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
             {error && <Toast title={error} variant="danger" />}
 
             <LoadingBar loading={status === 'pending'} />
-            <div className="white-pattern w-full border-black border-b px-4 bg-white py-2 min-h-[100vh]">
+            <div className="white-pattern w-full border-black border-b px-4 bg-white py-2 min-h-[100vh] font-['Inconsolata']">
                 <Image
                     src="/assets/logo.png"
                     alt="ds"
@@ -24,7 +24,7 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
                     height="150"
                 />
 
-                <div className="w-[90%] max-w-[400px] border border-black mx-auto mt-20 rounded p-2 shadow-[8px_8px_black] bg-white">
+                <div className="w-[95%] max-w-[400px] border border-black mx-auto mt-20 rounded p-2 shadow-[8px_8px_black] bg-white">
                     {children}
                 </div>
             </div>
