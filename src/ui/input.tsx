@@ -4,13 +4,14 @@ type TextFieldProps = {
     label?: string;
     htmlFor?: string;
     error?: string;
+    fullWidth?: boolean;
     [x: string]: any;
 };
 
 export const TextField: FC<TextFieldProps> = forwardRef<
     HTMLInputElement,
     TextFieldProps
->(({ label, htmlFor, error, ...others }, ref) => {
+>(({ label, htmlFor, error, fullWidth = false, ...others }, ref) => {
     return (
         <div className="flex flex-col my-2">
             {label && (
@@ -20,11 +21,11 @@ export const TextField: FC<TextFieldProps> = forwardRef<
             )}
             <input
                 ref={ref}
-                className={`p-2 outline-0 rounded border-2 ${
+                className={`p-3 w-full outline-0 rounded border-2 ${
                     error
                         ? 'border-red-600 placeholder:text-red-600'
                         : 'border-black'
-                }`}
+                } ${fullWidth && 'w-full'}`}
                 {...others}
             />
             {error && <span className="text-red-600">{error}</span>}

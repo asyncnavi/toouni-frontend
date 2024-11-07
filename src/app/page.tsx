@@ -1,7 +1,9 @@
 'use client';
 import React from 'react';
 
-import { IconArrowRight, IconMenu } from '@tabler/icons-react';
+import { IconArrowRight } from '@tabler/icons-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import withoutAuth from '@/hoc/without-auth';
@@ -9,46 +11,40 @@ import withoutAuth from '@/hoc/without-auth';
 const Home = () => {
     const router = useRouter();
     return (
-        <div className=" bg-yellow-300 w-full border-black border-b min-h-[100vh] font-['Inconsolata']">
-            <header className="w-full flex items-center ">
-                <div className="border  border-black flex-1 p-4 text-xl cursor-pointer font-bold font-['Anton_SC']">
-                    TooUNI
-                </div>
-                <div className="hidden md:block border  border-black flex-1 p-4 text-xl cursor-pointer">
-                    About
-                </div>
-                <div className="hidden md:block border  border-black flex-1 p-4 text-xl">
-                    FAQ
-                </div>
-                <div className="hidden md:block border  border-black flex-1 p-4 text-xl cursor-pointer">
-                    PRIVACY
-                </div>
-                <div className="hidden md:block border  border-black flex-1 p-4 text-xl cursor-pointer">
-                    TERMS
-                </div>
-                <div className="hidden md:block border  border-black flex-1 p-4 text-xl cursor-pointer">
-                    CONTACT
-                </div>
-                <div className="md:hidden border  border-black flex-1 p-4 text-xl cursor-pointer">
-                    <IconMenu />
-                </div>
+        <div className="white-pattern bg-white bg-patte w-full border-black border-b min-h-[100vh] font-['Inconsolata']">
+            <header className="lg:container mx-auto w-full flex items-center p-4 ">
+                <Link href="/">
+                    <h1 className="text-4xl font-bold bg-white rounded-xl border">
+                        toouni<span className="text-amber-500">;</span>
+                    </h1>
+                </Link>
             </header>
-            <h1 className="uppercase max-w-[1000px] font-bold  xs:text-4xl xs:leading-relaxed  md:text-8xl  px-4">
-                Where students{' '}
-                <span className="bg-blue-400 rounded">unite</span>,{' '}
-                <span className="bg-green-400 rounded">share</span>,{' '}
-                <span className="bg-red-400 rounded">thrive</span> together in a
-                vibrant online community.
-            </h1>
-
-            <div className="flex gap-2 mt-4 px-4">
-                <button
-                    onClick={() => router.push('/login')}
-                    className="border-2 border-black text-2xl p-2 flex items-center gap-2 shadow-[8px_8px_black] hover:shadow-none"
-                >
-                    Let{"'"}s get started
-                    <IconArrowRight />
-                </button>
+            <div className="sm:container w-full grid grid-cols-1 lg:grid-cols-2 items-center px-4 mt-20">
+                <div className="">
+                    <Image
+                        src="/assets/mockup-left.png"
+                        width={400}
+                        height={400}
+                        alt="Helo Helo"
+                    />
+                </div>
+                <div className="flex items-start justify-start flex-col space-y-4 w-full">
+                    <h1 className="text-5xl sm:6xl md:8xl lg:text-8xl font-bold break-words w-full max-w-[800px]">
+                        Let{"'"}s{' '}
+                        <span className="text-blue-400 rounded">unite</span>,{' '}
+                        <span className="text-green-400 rounded">share</span>,{' '}
+                        <span className="text-red-400 rounded">thrive</span>
+                        <br />
+                        together.
+                    </h1>
+                    <button
+                        onClick={() => router.push('/identify')}
+                        className="border-2 rounded-md bg-amber-500 border-black text-2xl p-2 flex items-center gap-2 shadow-[8px_8px_black] hover:shadow-none"
+                    >
+                        Let{"'"}s Get started
+                        <IconArrowRight />
+                    </button>
+                </div>
             </div>
         </div>
     );

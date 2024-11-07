@@ -1,22 +1,14 @@
-import React, { FC } from 'react';
+import React from 'react';
 
-import Image from 'next/image';
+import Link from 'next/link';
 
-type LogoSize = { w: number; h: number };
-
-type LogoProps = {
-    size?: LogoSize;
-    color?: 'white' | 'black' | 'yellow';
-};
-
-const Logo: FC<LogoProps> = ({ size = { w: 150, h: 150 } }) => {
+const Logo = () => {
     return (
-        <Image
-            src="/assets/logo.png"
-            alt="too-uni-logo"
-            width={size.w}
-            height={size.h}
-        />
+        <Link href="/">
+            <h1 className="text-4xl w-max font-bold bg-white rounded-xl border">
+                toouni<span className="text-amber-500">;</span>
+            </h1>
+        </Link>
     );
 };
 

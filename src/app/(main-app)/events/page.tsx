@@ -17,6 +17,8 @@ const Page = () => {
                                 description={event.description}
                                 color={event.color as string}
                                 key={event.id}
+                                date={event.date}
+                                time={event.time}
                             />
                         );
                     })}
