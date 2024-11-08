@@ -13,9 +13,9 @@ export const TextField: FC<TextFieldProps> = forwardRef<
     TextFieldProps
 >(({ label, htmlFor, error, fullWidth = false, ...others }, ref) => {
     return (
-        <div className="flex flex-col my-2">
+        <div className="flex flex-col my-2 space-y-2">
             {label && (
-                <label htmlFor={htmlFor} className="mb-2">
+                <label htmlFor={htmlFor} className="text-xl font-bold">
                     {label}
                 </label>
             )}

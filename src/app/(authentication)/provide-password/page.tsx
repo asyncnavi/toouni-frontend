@@ -7,7 +7,7 @@ import { IconArrowRight } from '@tabler/icons-react';
 import { TextField } from '@/ui';
 import Logo from '@/ui/logo';
 
-const IdentifyUserPage = () => {
+const Page = () => {
     return (
         <div className="sm:container mx-auto">
             <Logo />
@@ -25,4 +25,4 @@ const IdentifyUserPage = () => {
     );
 };
 
-export default IdentifyUserPage;
+export default Page;

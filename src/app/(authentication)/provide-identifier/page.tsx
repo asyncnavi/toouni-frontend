@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { TextField } from '@/ui';
 import Logo from '@/ui/logo';
 
-const IdentifyUserPage = () => {
+const Page = () => {
     const router = useRouter();
     return (
         <div className="sm:container mx-auto">
@@ -30,4 +30,4 @@ const IdentifyUserPage = () => {
     );
 };
 
-export default IdentifyUserPage;
+export default Page;
