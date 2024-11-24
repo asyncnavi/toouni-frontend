@@ -3,12 +3,22 @@
 import React from 'react';
 
 import { IconArrowRight } from '@tabler/icons-react';
+import { useSearchParams } from 'next/navigation';
 
 import { TextField } from '@/ui';
 
 const Page = () => {
+    const searchParams = useSearchParams();
+    const source = searchParams.get('source');
+
     return (
-        <React.Fragment>
+        <>
+            {source == 'identifier-check' && (
+                <div className="bg-indigo-200 border border-black p-1 rounded">
+                    You don{"'"}t have an account with this email or username.
+                    So let{"'"}s create a new one.
+                </div>
+            )}
             <TextField
                 label="Username"
                 type="text"
@@ -30,7 +40,7 @@ const Page = () => {
                 Continue
                 <IconArrowRight />
             </button>
-        </React.Fragment>
+        </>
     );
 };
 

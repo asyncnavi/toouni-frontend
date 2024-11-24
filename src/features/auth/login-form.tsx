@@ -5,20 +5,15 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 
 import { LoginInput, loginSchema } from '@/schemas/auth';
-import { useAppDispatch } from '@/store';
-import { loginWithPassword } from '@/store/auth/thunks';
 import { Button } from '@/ui/button';
 import { InputGroup, TextField } from '@/ui/input';
 
 export default function LoginForm() {
-    const dispatch = useAppDispatch();
     const { register, handleSubmit, formState } = useForm<LoginInput>({
         resolver: nopeResolver(loginSchema),
     });
 
-    const loginUser = (values: LoginInput) => {
-        dispatch(loginWithPassword(values));
-    };
+    const loginUser = (values: LoginInput) => {};
 
     return (
         <form onSubmit={handleSubmit(loginUser)}>

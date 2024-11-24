@@ -1,13 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { User } from '@supabase/supabase-js';
 
-import {
-    forgotPassword,
-    initializeSession,
-    loginWithPassword,
-    logout,
-    registerWithPassword,
-} from './thunks';
+import { User } from '@/models/auth';
+
+import { loginUser } from './thunks';
 
 interface AuthState {
     user?: User | null;
@@ -24,79 +19,26 @@ const initialAuthState: AuthState = {
 };
 
 export const authSlice = createSlice({
-    selectors: undefined,
     name: 'auth',
     initialState: initialAuthState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(initializeSession.pending, (state) => {
+            .addCase(loginUser.pending, (state) => {
                 state.status = 'pending';
                 state.error = null;
             })
-            .addCase(initializeSession.fulfilled, (state, action) => {
+            .addCase(loginUser.fulfilled, (state, action) => {
                 state.status = 'fulfilled';
-                state.user = action.payload.user;
-                state.hasProfile = action.payload.hasProfile;
+                state.user = action.payload.data;
                 state.error = null;
             })
-            .addCase(initializeSession.rejected, (state, action) => {
-                state.status = 'rejected';
-                state.error = action.payload as string;
-            })
-            .addCase(loginWithPassword.pending, (state) => {
-                state.status = 'pending';
-                state.error = null;
-            })
-            .addCase(loginWithPassword.fulfilled, (state, action) => {
-                state.status = 'fulfilled';
-                state.user = action.payload.user;
-                state.hasProfile = action.payload.hasProfile;
-                state.error = null;
-            })
-            .addCase(loginWithPassword.rejected, (state, action) => {
+            .addCase(loginUser.rejected, (state, action) => {
                 state.status = 'rejected';
                 state.user = null;
-                state.error = action.payload as string;
-            })
-            .addCase(registerWithPassword.pending, (state) => {
-                state.status = 'pending';
-                state.error = null;
-            })
-            .addCase(registerWithPassword.fulfilled, (state, action) => {
-                state.status = 'fulfilled';
-                state.user = action.payload;
-                state.error = null;
-            })
-            .addCase(registerWithPassword.rejected, (state, action) => {
-                state.status = 'rejected';
-                state.user = null;
-                state.error = action.payload as string;
-            })
-            .addCase(forgotPassword.pending, (state) => {
-                state.status = 'pending';
-                state.error = null;
-            })
-            .addCase(forgotPassword.fulfilled, (state) => {
-                state.status = 'fulfilled';
-                state.error = null;
-            })
-            .addCase(forgotPassword.rejected, (state, action) => {
-                state.status = 'rejected';
-                state.error = action.payload as string;
-            })
-            .addCase(logout.pending, (state) => {
-                state.status = 'pending';
-                state.error = null;
-            })
-            .addCase(logout.fulfilled, (state) => {
-                state.status = 'fulfilled';
-                state.user = null;
-                state.error = null;
-            })
-            .addCase(logout.rejected, (state, action) => {
-                state.status = 'rejected';
-                state.error = action.payload as string;
+                state.error = action.payload || 'Unknown error';
             });
     },
 });
+
+export default authSlice.reducer;

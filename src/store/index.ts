@@ -3,17 +3,17 @@ import { useDispatch } from 'react-redux';
 import { thunk } from 'redux-thunk';
 
 import { eventApi } from '@/api/event';
-import { profileApi } from '@/api/profile';
+import { userApi } from '@/api/user';
 import { authSlice } from '@/store/auth';
 
 export const store = configureStore({
     reducer: {
         auth: authSlice.reducer,
-        [profileApi.reducerPath]: profileApi.reducer,
+        [userApi.reducerPath]: userApi.reducer,
         [eventApi.reducerPath]: eventApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(thunk, profileApi.middleware),
+        getDefaultMiddleware().concat(thunk, userApi.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

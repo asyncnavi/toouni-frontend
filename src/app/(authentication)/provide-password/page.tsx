@@ -5,24 +5,20 @@ import React from 'react';
 import { IconArrowRight } from '@tabler/icons-react';
 
 import { TextField } from '@/ui';
-import Logo from '@/ui/logo';
 
 const Page = () => {
     return (
-        <div className="sm:container mx-auto">
-            <Logo />
-            <div className="w-full max-w-[400px] mx-auto">
-                <h1 className="text-4xl sm:6xl  font-bold break-words w-full max-w-[800px] mt-20">
-                    Password.
-                </h1>
-                <TextField type="password" placeholder="Enter your password." />
-                <button className="w-full border-2 rounded-md bg-amber-500 justify-center border-black text-2xl p-2 flex items-center gap-2 shadow-[8px_8px_black] hover:shadow-none">
-                    Continue
-                    <IconArrowRight />
-                </button>
-            </div>
-        </div>
+        <>
+            <TextField
+                label="Password"
+                type="password"
+                placeholder="Enter your password."
+            />
+            <button className="w-full border-2 rounded-md bg-amber-500 justify-center border-black text-2xl p-2 flex items-center gap-2 shadow-[8px_8px_black] hover:shadow-none">
+                Continue
+                <IconArrowRight />
+            </button>
+        </>
     );
 };
-
 export default Page;

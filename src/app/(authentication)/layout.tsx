@@ -3,7 +3,7 @@
 import React, { ReactNode } from 'react';
 
 import { IconArrowLeft } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '@/store';
@@ -15,9 +15,24 @@ interface AuthLayoutProps {
     children: ReactNode;
 }
 
+const buildPageTitle = (path: string): string => {
+    switch (path) {
+        case 'provide-identifier':
+            return 'Get started.';
+        case 'select-user-type':
+            return 'Choose user type';
+        case 'user-create':
+            return 'Create your account';
+        case 'provide-password':
+            return 'Login';
+    }
+    return '';
+};
 function AuthLayout({ children }: AuthLayoutProps) {
     const { status, error } = useSelector((state: RootState) => state.auth);
     const router = useRouter();
+    const pathname = usePathname().split('/')[1];
+    const pageTitle = buildPageTitle(pathname);
 
     return (
         <>
@@ -35,7 +50,7 @@ function AuthLayout({ children }: AuthLayoutProps) {
                                 <IconArrowLeft />
                             </button>
                             <h1 className="text-2xl font-bold break-words w-full max-w-[800px]">
-                                Create New Account
+                                {pageTitle}
                             </h1>
                         </div>
                         {children}

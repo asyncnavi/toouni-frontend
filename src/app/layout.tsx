@@ -1,23 +1,15 @@
 'use client';
-import { ReactNode, useEffect } from 'react';
+import { ReactNode } from 'react';
 
 import '@/styles/index.css';
 import { Quicksand } from 'next/font/google';
 import { Provider } from 'react-redux';
 
-import { store, useAppDispatch } from '@/store';
-import { initializeSession } from '@/store/auth/thunks';
+import { store } from '@/store';
 
 const inter = Quicksand({ subsets: ['latin'] });
 
-const AuthInitilizer = ({ children }: { children: ReactNode }) => {
-    const dispatch = useAppDispatch();
-    useEffect(() => {
-        dispatch(initializeSession());
-    }, []);
-    return <>{children}</>;
-};
-
+// TODO : Create Auth Initilizer wrapper
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -25,10 +17,8 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={inter.className}>
-                <Provider store={store}>
-                    <AuthInitilizer>{children}</AuthInitilizer>
-                </Provider>
+            <body>
+                <Provider store={store}>{children}</Provider>
             </body>
         </html>
     );
