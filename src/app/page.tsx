@@ -6,8 +6,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
-import withoutAuth from '@/hoc/without-auth';
-
 const Home = () => {
     const router = useRouter();
     return (
@@ -38,7 +36,7 @@ const Home = () => {
                         together.
                     </h1>
                     <button
-                        onClick={() => router.push('/provide-identifier')}
+                        onClick={() => router.push('/identify-user')}
                         className="border-2 rounded-md bg-amber-500 border-black text-2xl p-2 flex items-center gap-2 shadow-[8px_8px_black] hover:shadow-none"
                     >
                         Let{"'"}s Get started
@@ -49,4 +47,4 @@ const Home = () => {
         </div>
     );
 };
-export default withoutAuth(Home);
+export default Home;

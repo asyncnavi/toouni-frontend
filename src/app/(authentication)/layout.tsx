@@ -17,12 +17,14 @@ interface AuthLayoutProps {
 
 const buildPageTitle = (path: string): string => {
     switch (path) {
-        case 'provide-identifier':
+        case 'identify-user':
             return 'Get started.';
         case 'select-user-type':
             return 'Choose user type';
-        case 'user-create':
-            return 'Create your account';
+        case 'create-user':
+            return 'Create new account';
+        case 'create-username':
+            return 'Create new account';
         case 'provide-password':
             return 'Login';
     }

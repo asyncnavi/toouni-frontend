@@ -1,15 +1,22 @@
 'use client';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 import '@/styles/index.css';
-import { Quicksand } from 'next/font/google';
 import { Provider } from 'react-redux';
 
-import { store } from '@/store';
+import { store, useAppDispatch } from '@/store';
+import { initializeSession } from '@/store/auth/initliaze-session';
 
-const inter = Quicksand({ subsets: ['latin'] });
+const AuthInitializer = ({ children }: { children: ReactNode }) => {
+    const dispatch = useAppDispatch();
 
-// TODO : Create Auth Initilizer wrapper
+    useEffect(() => {
+        dispatch(initializeSession());
+    });
+
+    return <>{children}</>;
+};
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -18,7 +25,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Provider store={store}>{children}</Provider>
+                <Provider store={store}>
+                    <AuthInitializer>{children}</AuthInitializer>
+                </Provider>
             </body>
         </html>
     );

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '@/store';
@@ -9,16 +9,17 @@ import Toast from '@/ui/toast';
 
 export default function withAuth(Component: React.ComponentType) {
     const AuthenticatedComponent = (props: any) => {
-        const { user, hasProfile, status, error } = useSelector(
+        const router = useRouter();
+        const { user, status, error } = useSelector(
             (state: RootState) => state.auth,
         );
-        const loading = status == 'pending';
+        const loading = status === 'pending' || status === 'idle';
 
         useEffect(() => {
             if (!loading && !user) {
-                redirect('/');
+                router.push('/');
             }
-        });
+        }, [loading, router, user]);
 
         if (error) {
             return (
@@ -34,12 +35,7 @@ export default function withAuth(Component: React.ComponentType) {
             return <LoadingOverlay loading />;
         }
 
-        if (user && !hasProfile) {
-            redirect('/create-profile');
-            return null;
-        }
-
-        if (user && hasProfile) {
+        if (user) {
             return <Component {...props} />;
         }
 

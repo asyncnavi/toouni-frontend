@@ -8,7 +8,9 @@ type TextFieldProps = {
     htmlFor?: string;
     error?: string;
     fullWidth?: boolean;
-    helperText?: string;
+    helperText?: string | React.ReactNode;
+    setValidated?: boolean;
+    disabled?: boolean;
     [x: string]: any;
 };
 
@@ -17,29 +19,49 @@ export const TextField: FC<TextFieldProps> = forwardRef<
     TextFieldProps
 >(
     (
-        { label, htmlFor, error, fullWidth = false, helperText, ...others },
+        {
+            label,
+            htmlFor,
+            error,
+            fullWidth = false,
+            setValidated = false,
+            disabled = false,
+            helperText,
+            ...others
+        },
         ref,
     ) => {
         return (
-            <div className="flex flex-col my-2 ">
+            <div className="flex flex-col my-2 relative">
                 {label && (
                     <label htmlFor={htmlFor} className="text-xl font-bold my-2">
                         {label}
                     </label>
                 )}
+
                 <input
                     ref={ref}
+                    disabled={disabled}
                     className={clsx(
                         `p-3 w-full outline-0 rounded border-2`,
                         error
                             ? 'border-red-600 placeholder:text-red-600'
-                            : 'border-black',
+                            : setValidated
+                              ? 'border-green-600 placeholder:text-red-600'
+                              : 'border-black',
                         fullWidth && 'w-full',
+                        disabled && 'bg-gray-200',
                     )}
                     {...others}
                 />
+
                 {helperText && (
-                    <span className="text-gray-800 text-sm  font-bold">
+                    <span
+                        className={clsx(
+                            'text-sm  font-bold',
+                            setValidated ? 'text-green-600' : 'text-gray-800 ',
+                        )}
+                    >
                         {helperText}
                     </span>
                 )}

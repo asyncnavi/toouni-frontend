@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation';
 import { useSelector } from 'react-redux';
 
 import { RootState } from '@/store';
+import Toast from '@/ui/toast';
 
 export default function withoutAuth(Component: React.ComponentType) {
     const NotAuthenticatedComponent = (props: any) => {
@@ -14,9 +15,19 @@ export default function withoutAuth(Component: React.ComponentType) {
 
         useEffect(() => {
             if (!loading && user) {
-                redirect('/app');
+                redirect('/');
             }
         }, [loading, user]);
+
+        if (error) {
+            return (
+                <Toast
+                    variant="danger"
+                    title="There is an error"
+                    description={error}
+                />
+            );
+        }
 
         return <Component {...props} />;
     };
