@@ -8,10 +8,11 @@ import { useSearchParams } from 'next/navigation';
 import * as Nope from 'nope-validator';
 import { useForm } from 'react-hook-form';
 
-import { loginUser } from '@/api/user';
 import withoutAuth from '@/hoc/without-auth';
-import { LoginUserParams } from '@/models/auth';
 import { TextField } from '@/ui';
+
+import { loginUser } from '@/api/user';
+import { LoginUserParams } from '@/models/auth';
 
 const formSchema = Nope.object().shape({
     identifier: Nope.string().required('Please provide a username or Email'),

@@ -3,7 +3,6 @@
 import React from 'react';
 
 import IdeaCard from '@/components/core/idea-card';
-import withAuth from '@/hoc/with-auth';
 import MockIdeas from '@/mock/ideas';
 
 const Page = () => {
@@ -23,4 +22,4 @@ const Page = () => {
     );
 };
 
-export default withAuth(Page);
+export default Page;
